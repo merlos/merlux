@@ -110,9 +110,9 @@ systemctl start uptimed
 echo_line
 echo_info "Creating ~bin folder and adding it to path..."
 cd ~
-#mkdir -p bin
-#chmod 700 bin
-#echo "export PATH=$PATH:~/bin" >> .bash_profile
+mkdir -p bin
+chmod 700 bin
+echo "export PATH=$PATH:~/bin" >> .bash_profile
 echo_success "Created ~bin folder and added it to path."
 
 #
