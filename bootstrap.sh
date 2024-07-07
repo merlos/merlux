@@ -83,7 +83,7 @@ exit_error() {
 #
 echo_info "Installing preferred packages..."
 apt update
-#apt install -y nmap jed iperf3 iptables-persistent jq
+apt install -y nmap jed iperf3 iptables-persistent jq
 echo_success "Basic packages installed"
 
 #
@@ -91,18 +91,18 @@ echo_success "Basic packages installed"
 #
 echo_line
 echo_info "Adding cool letters to /etc/profile..."
-#apt install -y lolcat toilet figlet
-#echo "toilet -f smmono12 `hostname` | /usr/games/lolcat" >> /etc/profile
+apt install -y lolcat toilet figlet
+echo "toilet -f smmono12 `hostname` | /usr/games/lolcat" >> /etc/profile
 
 #
 # Launch the uptime records
 #
 echo_line
 echo_info "Setting up uptime records..."
-#apt install -y uptimed
+apt install -y uptimed
 echo_info "Starting uptimed..."
-#systemctl enable uptimed
-#systemctl start uptimed
+systemctl enable uptimed
+systemctl start uptimed
 
 #
 # Create the bin folder and add it to the path
@@ -123,13 +123,13 @@ echo_info "Downloading wireguard..."
 apt install -y wireguard wireguard-tools
 
 echo_info "Crearing the folder /etc/wireguard, and assigning permissiosn"
-#mkdir -p /etc/wireguard
-#chown root:root /etc/wireguard
-#chmod 700 /etc/wireguard
+mkdir -p /etc/wireguard
+chown root:root /etc/wireguard
+chmod 700 /etc/wireguard
 echo_success "Base setup of wireguard completed"
 echo_info "Create a new config file in the server using the command"
 HOSTNAME=`hostname`
-echo_info "pivpn add --name $HOSTNAME"
+echo_info "     pivpn add --name $HOSTNAME"
 
 #
 #
