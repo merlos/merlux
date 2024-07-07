@@ -83,7 +83,7 @@ exit_error() {
 #
 echo_info "Installing preferred packages..."
 apt update
-#apt install -y nmap jed iperf3 iptables-persistent
+#apt install -y nmap jed iperf3 iptables-persistent jq
 echo_success "Basic packages installed"
 
 #
