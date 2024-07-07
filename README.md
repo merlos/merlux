@@ -7,8 +7,12 @@ Some scripts that I use on my linux life.
 ```
 sudo su
 cd 
+# Install git 
+apt install -y git
+# clone this repo
 git clone https://github.com/merlos/merlux
 cd merlux
+# Run the bootstrap script
 ./bootstrap.sh
 ```
 
