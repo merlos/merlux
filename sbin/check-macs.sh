@@ -2,7 +2,7 @@
 
 # Set default interface and file paths
 INTERFACE="eth1"
-FILE_PATH="/root/bin/macs.json"
+FILE_PATH="/root/merlux/etc/macs.json"
 
 # Parse command line options
 while getopts "i:f:h" opt; do
