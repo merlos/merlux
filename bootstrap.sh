@@ -83,7 +83,7 @@ exit_error() {
 #
 echo_info "Installing preferred packages..."
 apt update
-apt install -y nmap jed iperf3 iptables-persistent jq
+apt install -y nmap jed iperf3 iptables-persistent jq net-tools
 echo_success "Basic packages installed"
 
 #
@@ -120,7 +120,7 @@ echo_success "Created ~bin folder and added it to path."
 #
 echo_line
 echo_info "Downloading wireguard..."
-apt install -y wireguard wireguard-tools
+apt install -y wireguard wireguard-tools resolvconf
 
 echo_info "Crearing the folder /etc/wireguard, and assigning permissiosn"
 mkdir -p /etc/wireguard
