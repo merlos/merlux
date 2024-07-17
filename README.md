@@ -35,20 +35,22 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin/
 
 # Every day update openssh-server
 0 0 * * * apt install -y openssh-server
-#* * * * * /root/bin/restart_openvpn.sh
-* * * * * /root/bin/restart_wireguard.sh
+
+# Restart VPN if it is down
+* * * * * /root/merlux/sbin/restart_openvpn.sh
+* * * * * /root/merlux/sbin/restart_wireguard.sh
 
 # Check macs in the network to detect unknown
-0,10,20,30,40,50 * * * * cd; cd bin;./check-macs.sh
+# because uses an nmap option that requires super user
+0,10,20,30,40,50 * * * * cd; cd merlux/sbin;./check-macs.sh
 ```
 
 
-## 
-Contents:
+## Repo Contents
 
-* `boostrap.sh` Basic things to install on a just installed
-* `/bin` commands run by regular users.
-* `/sbin` commands to be run by root.
+* `boostrap.sh` Basic things to install on a fresh debian instance
+* `/bin` commands run by the regular user (may require some setup)
+* `/sbin` commands to be run by root (may require some setup)
 
 
 
