@@ -83,7 +83,8 @@ exit_error() {
 #
 echo_info "Installing preferred packages..."
 apt update
-apt install -y nmap jed iperf3 iptables-persistent jq net-tools
+apt install -y nmap jed iperf3 iptables-persistent jq net-tools python3-pip python3-virtualenv
+
 echo_success "Basic packages installed"
 
 #
