@@ -123,7 +123,7 @@ echo_line
 echo_info "Downloading wireguard..."
 apt install -y wireguard wireguard-tools resolvconf
 
-echo_info "Crearing the folder /etc/wireguard, and assigning permissiosn"
+echo_info "Crearing the folder /etc/wireguard, and assigning 700 as permissions"
 mkdir -p /etc/wireguard
 chown root:root /etc/wireguard
 chmod 700 /etc/wireguard
