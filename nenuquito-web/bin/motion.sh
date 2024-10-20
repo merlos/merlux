@@ -10,10 +10,10 @@ check_status() {
 # Main logic to handle arguments
 case "$1" in
     on)
-        systemctl stop motion
+        systemctl start motion
         ;;
     off)
-        systemctl start motion
+        systemctl stop motion
         ;;
     status)
         check_status
