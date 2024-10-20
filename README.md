@@ -16,13 +16,23 @@ cd merlux
 ./bootstrap.sh
 ```
 
-## etc configuration
+## `etc` configuration
 
-Copy etc-sample to etc and setup
+Copy `etc-sample` to `etc` and setup
 
 ```
 cp -R etc-sample etc
 ```
+
+## Update scripts
+
+These are the commands to update the local version with the latest from repo
+
+```sh
+git checkout
+git pull origin main
+```
+
 
 ## user crontab
 
@@ -52,7 +62,9 @@ PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin/
 # because uses an nmap option that requires super user
 0,10,20,30,40,50 * * * * cd; cd merlux/sbin;./check-macs.sh
 ```
+## Setup nenuquito web
 
+See [nenuquito-web/README.md](nenuquito-web/README.md)
 
 ## Repo Contents
 
