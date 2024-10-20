@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Nenuquito </title>
+</head>
+<body>
+ <div class="container">
+    <h1 style="text-align:center">Nenuquito web</h1>
+    <!-- link to pihole -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Shortcuts</h2>
+        </div>
+        <div class="card-body">
+            <a href="{{ config.cloud }}" class="btn btn-outline-primary">Cloud Storage</a>
+            <a href="{{ config.dns_admin }}" class="btn btn-outline-primary">DNS Admin</a>
+            <a href="{{ config.motion }}" class="btn btn-outline-primary">Motion</a>
+            <a href="{{ config.monitoring }}" class="btn btn-outline-primary">Server monitoring</a>
+            
+        </div>
+    </div>
+
+    <!-- link to cloud-->
+    <div class="card mt-2">
+        <div class="row">
+            <form method="post" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="type" value="tv-internet">
+                <div class="pt-2 pb-2 mx-auto " style="text-align: center">
+                       
+
+                    <h3 class="mb-3"> 📺 Internet TV: {{ tv_status }}
+                        {% if tv_status == "Internet is ON" %}
+                            ✅
+                            {% else %}
+                            ⛔️
+                        {% endif %}
+    
+                    </h3>
+                    <button type="submit" class="btn btn-success btn-lg"
+        name="internet_on">Set Internet ON</button>
+                    <button type="submit" class="btn btn-danger btn-lg"
+        name="internet_off">Set Internet OFF</button>
+                </div>
+            </form>
+            {% if type=='tv-internet' and message %}
+                <div class="card text-bg-light mx-auto" style="max-width: 30rem;">
+                <div class="card-header">Command output</div>
+                    <div class="card-body">
+                    <pre style=" white-space: pre-wrap;" >{{ message }}<pre>
+                    </div>
+                </div>
+            {% endif %}
+    </div> <!-- row -->
+    </div> <!-- card -->
+
+    
+    <div class="card mt-2">
+        <div class="row">
+            <form method="post" >
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="type" value="motion">
+                <div class="pt-2 pb-2 mx-auto " style="text-align: center">
+                    <h3 class="mb-3">🎥 motion: {{ motion_status }}
+                        {% if motion_status == "active" %}
+                            ✅
+                            {% else %}
+                            ⛔️
+                        {% endif %}
+
+                    </h3>
+                    <button type="submit" class="btn btn-success btn-lg"
+        name="motion_on">Start capturing</button>
+                    <button type="submit" class="btn btn-danger btn-lg"
+        name="motion_off">Stop Capturing</button>
+                </div>
+            </form>
+            {% if type=='motion' and message %}
+                <div class="card text-bg-light mx-auto" style="max-width: 30rem;">
+                <div class="card-header">Command output</div>
+                    <div class="card-body">
+                    <pre style=" white-space: pre-wrap;" >{{ message }}<pre>
+                    </div>
+                </div>
+            {% endif %}
+    </div> <!-- row -->
+    </div> <!-- card -->
+    
+  </div>  <!-- container -->
+</body>
+</html>

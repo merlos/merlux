@@ -1,2 +1,3 @@
 etc/macs.json
 venv/
+__pycache__
