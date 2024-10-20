@@ -54,7 +54,7 @@ echo "$HOSTS" | while IFS= read -r line; do
       UNAUTHORIZED="[check-macs] !!! UNAUTHORIZED device detected: IP=$IP, MAC=$MAC_ADDR, VENDOR=$VENDOR VENDOR2=$VENDOR2"
       #echo $UNAUTHORIZED
       logger $UNAUTHORIZED
-      /bin/telegram.sh "$UNAUTHORIZED"
+      ../bin/telegram.sh "$UNAUTHORIZED"
     fi
 done
 
