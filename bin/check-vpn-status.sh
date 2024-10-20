@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Open VPN name 
+# Configuration variables overwritten by etc/check-vpn-status.conf
 OPENVPN_NAME="openvpn"
-
-# Replace eth0 with your interface name
 WIREGUARD_INTERFACE="wireguard"
 
+source ../etc/check-vpn-status.conf
 
 OPENVPN_PID_FILE="/var/run/openvpn/$OPENVPN_NAME.pid"
 

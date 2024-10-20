@@ -1,0 +1,11 @@
+{
+    "macFilterList": [
+    {
+        "hostname": "name",
+        "remark": "description",
+        "mac": "aa:bb:cc:dd:ee:ff",
+        "filterMode": "pass"
+    }
+    ]
+}
+    

@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Telegram bot token and chat ID
+# Config file should have this format:
 BOT_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 CHAT_ID="XXXXXXX"
+
+source ../etc/telegram.conf
 
 # Arguments passed by Motion
 FILE_PATH="$1"        # Full path to the saved file
