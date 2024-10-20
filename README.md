@@ -16,6 +16,14 @@ cd merlux
 ./bootstrap.sh
 ```
 
+## etc configuration
+
+Copy etc-sample to etc and setup
+
+```
+cp -R etc-sample etc
+```
+
 ## user crontab
 
 ```sh
