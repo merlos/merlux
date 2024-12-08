@@ -1,0 +1,8 @@
+services:
+    cloudflared:
+      container_name: cloudflared
+      hostname: cloudflared
+      image: merlos/cloudflared:latest
+      pull_policy: always
+      ports:
+        - "5353:5353/udp" # Map UDP port 5353 (required by some setups)
