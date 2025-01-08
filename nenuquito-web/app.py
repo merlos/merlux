@@ -16,6 +16,17 @@ def get_status(command):
         status = f"Error: {e.stderr}"
     return status
 
+
+def get_uptime():
+    uptime = ''
+    try:
+        command = ['/usr/bin/uptime']
+        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        uptime = result.stdout.strip()
+    except subprocess.CalledProcessError as e:
+        uptime = f"Error: {e.stderr}"
+    return uptime
+
 app = Flask(__name__)
 app.config.update(config)
 
@@ -67,6 +78,7 @@ def index():
     # Get the status
     tv_status = get_status('tv-internet')
     motion_status = get_status('motion') 
+    uptime = get_uptime()
 
     # Render the template
     return render_template('index.html', 
@@ -74,6 +86,7 @@ def index():
                            message=message, 
                            tv_status=tv_status, 
                            motion_status=motion_status,
+                           uptime=uptime,
                            config=config)
 
 if __name__ == '__main__':
