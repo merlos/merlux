@@ -1,6 +1,6 @@
 # Nenuquito web
 
-# Setup 
+## Setup 
 
 ```sh
 # go to main folder (where this README)
@@ -8,14 +8,18 @@ cd nenuquito-web
 # Create venv
 python -m venv venv
 
-# use the vcenv
+# use the venv
 source venv/bin/activate
 # install requirements
 pip install -r requirements.txt
 
+# run the app (debug mode)
+python app.py
+```
 
+## /bin folder setup
 
-# Bin setup
+The bin folder has some scripts that need to be run with root permissions.
 
 As root
 
@@ -24,7 +28,7 @@ cd bin
 # change ownership (replace <user-grp>) with the user group
 chown root:<user-grp> *
 
-# ensure permissions only read and x
+# Ensure permissions only read and execute for group
 chmod 750 *
 ```
 
