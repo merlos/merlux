@@ -48,6 +48,9 @@ def parse_nmap_output(output, debug):
     return devices
 
 def save_connected_devices(devices, whitelist, output_file, debug):
+    output_dir = os.path.dirname(output_file)
+    os.makedirs(output_dir, exist_ok=True)
+    
     if debug:
         print(f"Saving results to {output_file}")
     with open(output_file, mode='w', newline='') as file:
