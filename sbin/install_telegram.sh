@@ -53,34 +53,36 @@ fi
 
 # Create a wrapper script that will call the original telegram.sh
 echo "Creating secure wrapper script..."
-cat > "$BASE_DIR/bin/telegram-wrapper" << 'EOF'
+cat > "$BASE_DIR/bin/telegram-wrapper" << EOF
 #!/bin/bash
 set -eu -o pipefail
 
 # This wrapper executes the real telegram.sh script with the telegram user's permissions
 # It ensures the config file can only be read by the telegram user
 
-# Check if user is in the telegram_users group
-if ! id -Gn | grep -qw "telegram_users"; then
-    echo "Error: You are not authorized to use this command." >&2
-    echo "Ask your system administrator to add you to the telegram_users group." >&2
-    echo "sudo usermod -aG telegram_users USERNAME" >&2
-    exit 1
+# Skip group membership check if running as root
+if [ "\$(id -u)" -ne 0 ]; then
+    # Check if user is in the telegram_users group
+    if ! id -Gn | grep -qw "telegram_users"; then
+        echo "Error: You are not authorized to use this command." >&2
+        echo "Ask your system administrator to add you to the telegram_users group." >&2
+        exit 1
+    fi
 fi
 
 # Security check: Require exactly one argument
-if [ $# -ne 1 ]; then
-    echo "Usage: $(basename "$0") <message>" >&2
+if [ \$# -ne 1 ]; then
+    echo "Usage: \$(basename "\$0") <message>" >&2
     exit 1
 fi
 
 # Use array to prevent word splitting and properly handle arguments with spaces or special characters
-MESSAGE=("$1")
+MESSAGE=("\$1")
 
 # Use an array with sudo to prevent any potential command injection
 # -n = non-interactive, -u = user
 # -- signifies end of sudo options
-exec /usr/bin/sudo -n -u telegram -- "$BASE_DIR/bin/telegram.sh" "${MESSAGE[@]}"
+exec /usr/bin/sudo -n -u telegram -- $BASE_DIR/bin/telegram.sh "\${MESSAGE[@]}"
 EOF
 
 # Copy the original telegram.sh script
