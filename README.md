@@ -4,7 +4,7 @@ Some scripts that I use on my linux life.
 
 ## Usage
 
-```
+```sh
 sudo su
 cd 
 # Install git 
@@ -12,16 +12,34 @@ apt install -y git
 # clone this repo
 git clone https://github.com/merlos/merlux
 cd merlux
-# Run the bootstrap script
-./bootstrap.sh
 ```
 
-## `etc` configuration
+Review the `etc` configuration
 
 Copy `etc-sample` to `etc` and setup
 
-```
+```sh
 cp -R etc-sample etc
+```
+
+### Run the bootstrap script
+```sh
+./bootstrap.sh
+```
+
+### Install the telegram script
+```sh
+./install-telegram.sh
+```
+
+Add a user to the `telegram_users` group
+```sh
+usermod -aG telegram_users <allowed_user>
+```
+
+```sh
+su allowed_user
+telegram "hola"
 ```
 
 ## Update scripts
