@@ -64,6 +64,7 @@ set -eu -o pipefail
 if ! id -Gn | grep -qw "telegram_users"; then
     echo "Error: You are not authorized to use this command." >&2
     echo "Ask your system administrator to add you to the telegram_users group." >&2
+    echo "sudo usermod -aG telegram_users USERNAME" >&2
     exit 1
 fi
 

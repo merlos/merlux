@@ -2,8 +2,8 @@
 
 # Define an array with the list of paths to backup
 declare -a FOLDERS_TO_BACKUP=(
-    "/etc/caca"
-    # Add other folders here
+    "/etc/docker"
+    
 )
 	
 # Define the base destination folder
