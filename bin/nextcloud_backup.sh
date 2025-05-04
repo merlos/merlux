@@ -4,7 +4,7 @@
 # Created: $(date +"%Y-%m-%d")
 
 # Default config location
-CONFIG_FILE="$HOME/.config/nextcloud_backup.conf"
+CONFIG_FILE="$HOME/etc/nextcloud_backup.conf"
 
 # Function to display usage
 usage() {
@@ -49,7 +49,7 @@ fi
 source "$CONFIG_FILE"
 
 # Set default values if not defined in config
-: "${TELEGRAM_SCRIPT:="/bin/telegram.sh"}"
+: "${TELEGRAM_SCRIPT:="/usr/local/bin/telegram"}"
 : "${SOURCE_DIR:="$HOME/nextcloud"}"
 : "${BACKUP_DIR:="$HOME/backup/nextcloud"}"
 : "${LOG_DIR:="$HOME/backup/logs"}"
