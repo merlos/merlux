@@ -4,7 +4,7 @@
 INTERFACE="eth1"
 FILE_PATH="/root/merlux/etc/macs.json"
 
-source ../etc/check-macs.conf
+source ../etc/check_macs.conf
 
 # Parse command line options
 while getopts "i:f:h" opt; do
