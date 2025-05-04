@@ -84,7 +84,7 @@ EOF
 
 # Copy the original telegram.sh script
 echo "Installing telegram.sh script..."
-cp -f "./telegram.sh" "$BASE_DIR/bin/telegram.sh"
+cp -f "../bin/telegram.sh" "$BASE_DIR/bin/telegram.sh"
 chmod 500 "$BASE_DIR/bin/telegram.sh"  # Only owner can read/execute
 chown telegram:telegram "$BASE_DIR/bin/telegram.sh"
 
