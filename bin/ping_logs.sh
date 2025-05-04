@@ -1,9 +1,13 @@
 #!/bin/bash
 
-# Configuration variables
-LOG_FILE="/var/log/ping.log"
+# Default Configuration variables
+LOG_FILE="../var/log/ping.log"
 PING_DOMAIN="google.es"
 PING_PACKET_COUNT=50  # Number of packets to send
+
+# Load configuration from external file
+source "../etc/ping_logs.conf"
+
 
 # Function to perform the ping test
 perform_ping_test() {
