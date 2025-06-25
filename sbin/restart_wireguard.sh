@@ -6,27 +6,28 @@
 #
 
 #
-# Config
+# DEFAULT Config
 #
-
 # Ip of the wireguard server
 IP="192.168.0.1" 
-
 # Interface name
 INTERFACE="wg0"
-
 # temporary status files
 NOT_RESTARTED_FILE=/tmp/wireguard-not-restarted
 RESTARTED_FILE=/tmp/wireguard-restarted
 
+
 # get the script directory
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
+# Configuration file path
+CONFIG_FILE="$SCRIPT_DIR/../etc/restart_wireguard.conf"
+
 # load the configuration file from ../etc/wireguard.conf
-if [ -f "$SCRIPT_DIR/../etc/wireguard.conf" ]; then
-    source "$SCRIPT_DIR/../etc/wireguard.conf"
+if [ -f $CONFIG_FILE ]; then
+    source $CONFIG_FILE
 else
-    logger "Configuration file not found: $SCRIPT_DIR/../etc/wireguard.conf"
+    logger "Configuration file not found: $CONFIG_FILE"
     exit 1
 fi
 
