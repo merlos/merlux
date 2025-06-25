@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Restarts wireguard in case it is not able to contact the
 # wireguard server IP
