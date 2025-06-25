@@ -4,6 +4,17 @@
 INTERFACE="eth1"
 FILE_PATH="/root/merlux/etc/macs.json"
 
+# Get the directory of the script
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+# Load configuration from the check_macs.conf file 
+# usingthe script dir 
+if [[ -f "$SCRIPT_DIR/../etc/check_macs.conf" ]]; then
+  source "$SCRIPT_DIR/../etc/check_macs.conf"
+else
+  echo "Configuration file not found: $SCRIPT_DIR/../etc/check_macs.conf"
+  exit 1
+fi
+
 source ../etc/check_macs.conf
 
 # Parse command line options
