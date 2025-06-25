@@ -15,8 +15,6 @@ else
   exit 1
 fi
 
-source ../etc/check_macs.conf
-
 # Parse command line options
 while getopts "i:f:h" opt; do
   case ${opt} in
