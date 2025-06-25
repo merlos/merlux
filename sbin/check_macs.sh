@@ -11,7 +11,7 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 if [[ -f "$SCRIPT_DIR/../etc/check_macs.conf" ]]; then
   source "$SCRIPT_DIR/../etc/check_macs.conf"
 else
-  echo "Configuration file not found: $SCRIPT_DIR/../etc/check_macs.conf"
+  logger "Configuration file not found: $SCRIPT_DIR/../etc/check_macs.conf"
   exit 1
 fi
 
