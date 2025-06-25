@@ -44,12 +44,19 @@ telegram "hola"
 
 ## Update scripts
 
-These are the commands to update the local version with the latest from repo
+These are the commands to update the local version with the latest from repo:
 
 ```sh
+cd repo_folder
 git checkout
 git pull origin main
 ```
+
+If any file has changed locally and you want to discard those changes
+```sh
+git restore folder/filename
+```
+
 
 
 ## user crontab
