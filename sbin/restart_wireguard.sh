@@ -19,6 +19,16 @@ INTERFACE="wg0"
 NOT_RESTARTED_FILE=/tmp/wireguard-not-restarted
 RESTARTED_FILE=/tmp/wireguard-restarted
 
+# get the script directory
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# load the configuration file from ../etc/wireguard.conf
+if [ -f "$SCRIPT_DIR/../etc/wireguard.conf" ]; then
+    source "$SCRIPT_DIR/../etc/wireguard.conf"
+else
+    logger "Configuration file not found: $SCRIPT_DIR/../etc/wireguard.conf"
+    exit 1
+fi
 
 #
 # MAIN SCRIPT
@@ -46,7 +56,7 @@ then
         # Report not actually back
         touch $NOT_RESTARTED_FILE
         rm -f -- $RESTARTED_FILE
-        /bin/telegram.sh "[$0] Restart $INTERFACE FAILED. Will retry."
+        telegram "[$0] Restart $INTERFACE FAILED. Will retry."
         logger "[$0] Restart $INTERFACE FAILED. Telegram message sent"
       fi
       #logger "[$0] Sad ending"
@@ -62,7 +72,7 @@ then
         touch $RESTARTED_FILE
         rm -f -- $NOT_RESTARTED_FILE
 	    logger "[$0] Restarted wireguard ($INTERFACE $IP/24)"
-        /bin/telegram.sh "[$0] Restarted wireguard ($INTERFACE $IP/24)"
+      telegram "[$0] Restarted wireguard ($INTERFACE $IP/24)"
       fi
    #logger "[$0] Happy ending"
    exit 0
