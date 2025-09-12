@@ -27,8 +27,10 @@ if [ "$ACTION" != "open" ] && [ "$ACTION" != "close" ] && [ "$ACTION" != "status
     usage
 fi
 
-# Configuration file path
-CONFIG_FILE="../etc/http.conf"
+# Configuration file path (relative the script location)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/../etc/http.conf"
+
 
 # Check if configuration file exists
 if [ ! -f "$CONFIG_FILE" ]; then
