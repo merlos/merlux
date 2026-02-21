@@ -83,9 +83,17 @@ exit_error() {
 #
 echo_info "Installing preferred packages..."
 apt update
-apt install -y nmap jed iperf3 iptables-persistent jq net-tools python3-pip python3-virtualenv curl ieee-data
+apt install -y nmap jed iperf3 iptables-persistent jq net-tools python3-pip python3-virtualenv curl ieee-data procps 
 
 echo_success "Basic packages installed"
+
+
+echo_info "Configuring JED to always display line numbers..."
+mkdir -p /etc/jed.d
+cat > /etc/jed.d/linenum.sl <<'EOF'
+LINENUMBERS = 2;
+EOF
+echo_success "JED line numbers enabled"
 
 #
 # Display the hostname in a cool way
@@ -132,6 +140,3 @@ echo_info "Create a new config file in the server using the command"
 HOSTNAME=`hostname`
 echo_info "     pivpn add --name $HOSTNAME"
 
-#
-#
-#
