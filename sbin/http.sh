@@ -39,7 +39,7 @@ if [ ! -f "$CONFIG_FILE" ]; then
 fi
 
 # Source the configuration file to load DEFAULT_INTERFACE
-source "$CONFIG_FILE"
+. "$CONFIG_FILE"
 
 # Use override interface if provided, otherwise use default from config
 if [ -n "$INTERFACE_OVERRIDE" ]; then
