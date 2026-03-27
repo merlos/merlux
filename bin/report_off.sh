@@ -1,8 +1,32 @@
 #!/bin/bash
+#
+# report_off.sh — Monitor a host by IP and send Telegram notifications on state changes.
+#
+# Usage:
+#   report_off.sh <ip_address>
+#
+# Description:
+#   Pings the given IP address and tracks whether it is up or down using a
+#   state file in ../var/. Designed to be run from a cron job.
+#
+#   - When a host transitions from UP to DOWN, a Telegram message is sent.
+#   - When a host transitions from DOWN back to UP, a Telegram message is sent.
+#   - Repeated cron runs while the host remains in the same state send no message.
+#
+# Dependencies:
+#   - telegram (see telegram.sh): must be available at $TELEGRAM
+#   - ping, grep, mkdir
+#
+# State files:
+#   ../var/ping_state_<ip_with_underscores>  (e.g. ping_state_192_168_1_1)
+#
+# Cron example (check every 5 minutes):
+#   */5 * * * * /path/to/merlux/bin/report_off.sh 192.168.1.1
+#
 set -eu -o pipefail
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-TELEGRAM="$SCRIPT_DIR/telegram.sh"
+TELEGRAM="/usr/local/bin/telegram"
 STATE_DIR="$SCRIPT_DIR/../var"
 
 # Validate argument
