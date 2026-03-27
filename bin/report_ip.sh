@@ -9,6 +9,7 @@
 # Example of cron hourly execution:
 #    crontab -e
 # Add this line:  
+# once per hour at minute 0.
 #    0 * * * * /path/to/report_ip.sh
 
 
