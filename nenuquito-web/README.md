@@ -74,16 +74,88 @@ Replace `<user>` and `<path>`
 
 ```conf
 [Unit]
-Description=Gunicorn instance to serve nenuquit-web Flask app
+Description=Gunicorn instance to serve nenuquito-web Flask app
 After=network.target
 
 [Service]
 User=<user>
 Group=<user>
-WorkingDirectory=/
-Environment="PATH=/usr/bin/;/<path</nenuquito-web/venv/bin"
-ExecStart=/<path>/nenuquito-web/venv/bin/gunicorn --workers 3 --bind <ip-address>:<port> app:app
+WorkingDirectory=/<path>/nenuquito-web
+Environment="PATH=/<path>/nenuquito-web/venv/bin:/usr/bin"
+ExecStart=/<path>/nenuquito-web/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:5000 app:app
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
+```
+
+Important:
+
+- Keep `ExecStart` on a single line in systemd.
+- Do not write `\app:app` (that becomes `\x07pp` internally because `\a` is an escape sequence).
+
+## Running with Gunicorn
+
+When using Gunicorn, the `app.run(...)` block in [app.py](app.py) is not used.
+So `SSL_ENABLED`, `SSL_CERT_FILE`, and `SSL_KEY_FILE` from [config.py](config.py)
+apply only to `python app.py` local runs.
+
+### Option 1: Gunicorn handles TLS directly
+
+```sh
+cd nenuquito-web
+./venv/bin/gunicorn --workers 3 --bind 0.0.0.0:8443 --certfile /path/to/nenuquito.crt --keyfile /path/to/nenuquito.key app:app
+```
+
+Recommended config values for this mode:
+
+```python
+config['HTTPS_ONLY'] = True
+config['SSL_ENABLED'] = False  # ignored by Gunicorn anyway
+```
+
+### Option 2: Reverse proxy TLS (Nginx/Caddy) + Gunicorn HTTP upstream
+
+Run Gunicorn on localhost HTTP:
+
+```sh
+cd nenuquito-web
+./venv/bin/gunicorn --workers 3 --bind 127.0.0.1:5000 app:app
+```
+
+Set your proxy to send:
+
+```txt
+X-Forwarded-Proto: https
+```
+
+Recommended config values for this mode:
+
+```python
+config['HTTPS_ONLY'] = True
+config['SSL_ENABLED'] = False
+```
+
+If your proxy does not send `X-Forwarded-Proto: https`, `HTTPS_ONLY=True` will
+cause redirect loops.
+
+### Troubleshooting
+
+If you see:
+
+```txt
+ModuleNotFoundError: No module named '\x07pp'
+```
+
+Your Gunicorn app target was parsed as `\app:app` instead of `app:app`.
+Use `app:app` exactly, with no leading backslash.
+
+### Basic Auth with Gunicorn
+
+Basic authentication is handled in Flask middleware, so it works the same with
+Gunicorn. Keep these set in [config.py](config.py):
+
+```python
+config['BASIC_AUTH_USERNAME'] = 'your-user'
+config['BASIC_AUTH_PASSWORD'] = 'strong-password'
 ```
