@@ -17,6 +17,30 @@ pip install -r requirements.txt
 python app.py
 ```
 
+## Security configuration
+
+Update [config.py](config.py) with your desired values:
+
+```python
+# Enable basic auth by setting both values
+config['BASIC_AUTH_USERNAME'] = 'admin'
+config['BASIC_AUTH_PASSWORD'] = 'change-me'
+
+# Redirect all HTTP requests to HTTPS when True
+config['HTTPS_ONLY'] = True
+
+# TLS for local Flask app execution
+config['SSL_ENABLED'] = True
+config['SSL_CERT_FILE'] = '/path/to/nenuquito.crt'
+config['SSL_KEY_FILE'] = '/path/to/nenuquito.key'
+```
+
+Notes:
+
+- If `SSL_ENABLED` is `True` and cert/key are empty, Flask uses an ad-hoc self-signed certificate.
+- `HTTPS_ONLY` is useful behind a reverse proxy too (it honors `X-Forwarded-Proto: https`).
+- If basic auth username/password are empty, auth is disabled.
+
 ## /bin folder setup
 
 The bin folder has some scripts that need to be run with root permissions.
