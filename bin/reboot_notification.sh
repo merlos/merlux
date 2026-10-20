@@ -12,25 +12,25 @@ interface_addresses() {
         | sort -u
 }
 
-if ! INTERFACES=$(interface_addresses); then
-    INTERFACES="unavailable"
-fi
-
-if [ -z "$INTERFACES" ]; then
-    INTERFACES="none"
-fi
-
-PUBLIC_IP=$(curl --fail --silent --show-error --max-time 10 https://api.ipify.org 2>/dev/null || true)
-if [ -z "$PUBLIC_IP" ]; then
-    PUBLIC_IP="unavailable"
-fi
-
-MESSAGE=$(printf 'Host %s rebooted.\n\nInterfaces and IPs:\n%s\n\nPublic IP: %s' \
-    "$HOSTNAME" "$INTERFACES" "$PUBLIC_IP")
-
-logger -t reboot-notification "Host ${HOSTNAME} rebooted; public IP: ${PUBLIC_IP}"
-
 for ((attempt = 1; attempt <= MAX_ATTEMPTS; attempt++)); do
+    if ! INTERFACES=$(interface_addresses); then
+        INTERFACES="unavailable"
+    fi
+
+    if [ -z "$INTERFACES" ]; then
+        INTERFACES="none"
+    fi
+
+    PUBLIC_IP=$(curl --fail --silent --show-error --max-time 10 https://api.ipify.org 2>/dev/null || true)
+    if [ -z "$PUBLIC_IP" ]; then
+        PUBLIC_IP="unavailable"
+    fi
+
+    MESSAGE=$(printf 'Host %s rebooted.\n\nInterfaces and IPs:\n%s\n\nPublic IP: %s' \
+        "$HOSTNAME" "$INTERFACES" "$PUBLIC_IP")
+
+    logger -t reboot-notification "Host ${HOSTNAME} rebooted; public IP: ${PUBLIC_IP}"
+
     if "$TELEGRAM" "$MESSAGE"; then
         exit 0
     fi
