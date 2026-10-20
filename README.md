@@ -46,7 +46,9 @@ telegram "hola"
 
 After installing the Telegram script, install the systemd service that sends a
 Telegram message after each reboot. The message includes the hostname, active
-interface names and IP addresses, and the public IP address.
+interface names and IP addresses, and the public IP address. It waits for
+`network-online.target` and retries Telegram delivery for up to one minute if
+DNS or Internet connectivity is not ready yet.
 
 ```sh
 sudo ./sbin/install_reboot_notification.sh
@@ -58,6 +60,9 @@ The installer enables the service but does not start it immediately. Use
 ```sh
 sudo ./sbin/install_reboot_notification.sh --force
 ```
+
+Run the same command with `--force` after updating the notifier scripts so the
+installed service uses the latest version.
 
 Check the service and its logs with:
 
@@ -120,5 +125,4 @@ See [nenuquito-web/README.md](nenuquito-web/README.md)
 * `boostrap.sh` Basic things to install on a fresh debian instance
 * `/bin` commands run by the regular user (may require some setup)
 * `/sbin` commands to be run by root (may require some setup)
-
 
